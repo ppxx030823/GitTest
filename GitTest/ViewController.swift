@@ -26,6 +26,13 @@ class ViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false // 关闭自动转换
         view.addSubview(button)
 
+        // 创建 UIButton2
+        let button2 = UIButton(type: .system)
+        button2.setTitle("111", for: .normal)
+        button2.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button2.translatesAutoresizingMaskIntoConstraints = false // 关闭自动转换
+        view.addSubview(button2)
+
         // 使用原生自动布局为 UIButton 进行布局
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
