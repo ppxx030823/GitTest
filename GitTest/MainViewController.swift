@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import SwifterSwift
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     var tableView: UITableView!
     // 存储每个单元格的展开或折叠状态
     let dataSouce = [
@@ -32,8 +32,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        view.addSubview(label)
-        //        view.addSubview(button)
         let safeArea = view.safeAreaLayoutGuide
 
         // 创建 UITableView 并设置其 frame
@@ -47,11 +45,6 @@ class ViewController: UIViewController {
         tableView.separatorStyle = .none
         view.addSubview(tableView)
 
-        //  MARK: 动画 变透明
-//        UIView.animate(withDuration: 1.0) {
-//            self.view.alpha = 0.0
-//        }
-
         // 初始化 isExpanded 二维数组
         for sectionData in dataSouce {
             let sectionExpanded = [Bool](repeating: false, count: sectionData.count)
@@ -61,7 +54,7 @@ class ViewController: UIViewController {
 }
 
     //UITableView要展示几组，每组几个，具体展示
-extension ViewController: UITableViewDataSource {
+extension MainViewController: UITableViewDataSource {
 
     //几行
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -91,7 +84,7 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-extension ViewController: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 切换单元格的展开或折叠状态
@@ -101,6 +94,19 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
+extension MainViewController {
+    
+    @objc private func goToSecondPage() {
+        let secondVC = SecondViewController()
+        // 设置回调闭包
+        secondVC.dataCallback = { [weak self] data in
+            print("Received data from second page: \(data)")
+        }
+        // 传递数据到第二个页面
+        secondVC.receivedData = "Data from first page"
+        navigationController?.pushViewController(secondVC, animated: true)
+    }
+}
 #Preview {
-    ViewController()
+    MainViewController()
 }

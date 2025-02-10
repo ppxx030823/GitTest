@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 
-class DemoTableViewNormalCell: UITableViewCell {
+class DemoTableViewNormalCellView: UITableViewCell {
     var image: UIImageView = {
         let image = UIImageView()
         // 使用系统自带的 SF Symbols 图标
@@ -29,6 +29,12 @@ class DemoTableViewNormalCell: UITableViewCell {
         label.textColor = .blue
         label.font = .systemFont(ofSize: 20)
         return label
+    }()
+
+    var button: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("GO", for: .normal)
+        return button
     }()
 
     var label2: UILabel = {
@@ -52,7 +58,7 @@ class DemoTableViewNormalCell: UITableViewCell {
     let switchControl: UISwitch = {
         let switchControl = UISwitch()
         switchControl.isOn = false
-        switchControl.addTarget(DemoTableViewNormalCell.self, action: #selector(switchValueChanged), for: .valueChanged)
+        switchControl.addTarget(DemoTableViewNormalCellView.self, action: #selector(switchValueChanged), for: .valueChanged)
         return switchControl
     }()
 
@@ -75,7 +81,7 @@ class DemoTableViewNormalCell: UITableViewCell {
         slider.minimumValue = 0
         slider.maximumValue = 100
         slider.value = 50
-        slider.addTarget(DemoTableViewNormalCell.self, action: #selector(sliderValueChanged), for: .valueChanged)
+        slider.addTarget(DemoTableViewNormalCellView.self, action: #selector(sliderValueChanged), for: .valueChanged)
         return slider
     }()
 
@@ -131,6 +137,7 @@ class DemoTableViewNormalCell: UITableViewCell {
     func addSubviewsForUserCell() {
         contentView.addSubview(image)
         contentView.addSubview(label1)
+        contentView.addSubview(button)
         contentView.addSubview(label2)
         contentView.addSubview(textField)
         contentView.addSubview(customeCycle)
@@ -169,14 +176,14 @@ class DemoTableViewNormalCell: UITableViewCell {
             make.centerY.equalToSuperview()
         }
 
-        label2.snp.makeConstraints { make in
+        button.snp.makeConstraints { make in
             make.width.equalTo(80)
             make.centerY.equalToSuperview()
         }
 
         textField.snp.makeConstraints { make in
-            make.centerY.equalTo(self.label2)
-            make.leading.equalTo(self.label2.snp_trailingMargin).offset(10)
+            make.centerY.equalTo(self.button)
+            make.leading.equalTo(self.button.snp_trailingMargin).offset(10)
             make.trailing.equalToSuperview().offset(-10)
         }
 
@@ -188,6 +195,10 @@ class DemoTableViewNormalCell: UITableViewCell {
     }
 
     func animationUI() {
+        //  MARK: 动画 变透明
+//        UIView.animate(withDuration: 1.0) {
+//            self.view.alpha = 0.0
+//        }
         //  MARK: 动画 变透明
         //        UIView.animate(withDuration: 1.0, animations: {
         //            self.customeCycle.alpha = 0.0

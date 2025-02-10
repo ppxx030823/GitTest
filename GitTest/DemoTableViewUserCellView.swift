@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 
-class DemoTableViewUserCell: UITableViewCell {
+class DemoTableViewUserCellView: UITableViewCell {
 //    var tableViewUserCell: UITableViewCell!
     var image: UIImageView = {
         let image = UIImageView()
