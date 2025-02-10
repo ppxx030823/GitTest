@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B2A30AA62D59CFB1007EF20D /* SwifterSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B2A30AA52D59CFB1007EF20D /* SwifterSwift */; };
+		B2A30AA92D59CFC2007EF20D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B2A30AA82D59CFC2007EF20D /* SnapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		B232977A2D57311500A25C76 /* GitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2A30AA62D59CFB1007EF20D /* SwifterSwift in Frameworks */,
+				B2A30AA92D59CFC2007EF20D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = GitTest;
 			packageProductDependencies = (
+				B2A30AA52D59CFB1007EF20D /* SwifterSwift */,
+				B2A30AA82D59CFC2007EF20D /* SnapKit */,
 			);
 			productName = GitTest;
 			productReference = B232977A2D57311500A25C76 /* GitTest.app */;
@@ -108,6 +117,8 @@
 			mainGroup = B23297712D57311500A25C76;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				B2A30AA42D59CFB1007EF20D /* XCRemoteSwiftPackageReference "SwifterSwift" */,
+				B2A30AA72D59CFC2007EF20D /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B232977B2D57311500A25C76 /* Products */;
@@ -337,6 +348,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B2A30AA42D59CFB1007EF20D /* XCRemoteSwiftPackageReference "SwifterSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwifterSwift/SwifterSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		B2A30AA72D59CFC2007EF20D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B2A30AA52D59CFB1007EF20D /* SwifterSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2A30AA42D59CFB1007EF20D /* XCRemoteSwiftPackageReference "SwifterSwift" */;
+			productName = SwifterSwift;
+		};
+		B2A30AA82D59CFC2007EF20D /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2A30AA72D59CFC2007EF20D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B23297722D57311500A25C76 /* Project object */;
 }

@@ -1,55 +1,106 @@
+//
+//  ViewController.swift
+//  test001
+//
+//  Created by ppx on 2025/2/6.
+//
+
 import UIKit
+import SnapKit
+import SwifterSwift
 
 class ViewController: UIViewController {
+    var tableView: UITableView!
+    // 存储每个单元格的展开或折叠状态
+    let dataSouce = [
+        [("ppx", "FirstLabel2")],
+        [
+            ("Second2", "Second1"),
+            ("Second2", "Second2"),
+            ("Second2", "Second3"),
+        ],
+        [
+            ("Second3", "Second1"),
+            ("Second3", "Second2"),
+            ("Second3", "Second3"),
+            ("Second3", "Second4"),
+            ("Second3", "Second5")
+        ]
+    ]
+
+    var isExpanded: [[Bool]] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //        view.addSubview(label)
+        //        view.addSubview(button)
+        let safeArea = view.safeAreaLayoutGuide
 
-        // 创建 UILabel
-        let label = UILabel()
-        label.text = "111"
-        label.translatesAutoresizingMaskIntoConstraints = false // 关闭自动转换
-        view.addSubview(label)
+        // 创建 UITableView 并设置其 frame
+        tableView = UITableView(frame: safeArea.layoutFrame, style: .plain)
+        //        tableView = UITableView(frame: view.bounds, style: .plain)
 
-        // 创建 UILabel2
-        let label2 = UILabel()
-        label2.text = "111"
-        label2.translatesAutoresizingMaskIntoConstraints = false // 关闭自动转换
-        view.addSubview(label2)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(DemoTableViewUserCell.self, forCellReuseIdentifier: "DemoTableViewUserCell")
+        tableView.register(DemoTableViewNormalCell.self, forCellReuseIdentifier: "DemoTableViewNormalCell")
+        tableView.separatorStyle = .none
+        view.addSubview(tableView)
 
-        // 使用原生自动布局为 UILabel 进行布局
-        NSLayoutConstraint.activate([
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            label.widthAnchor.constraint(equalToConstant: 20),
-            label.heightAnchor.constraint(equalToConstant: 20)
-        ])
+        //  MARK: 动画 变透明
+//        UIView.animate(withDuration: 1.0) {
+//            self.view.alpha = 0.0
+//        }
 
-        // 创建 UIButton
-        let button = UIButton(type: .system)
-        button.setTitle("111", for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false // 关闭自动转换
-        view.addSubview(button)
+        // 初始化 isExpanded 二维数组
+        for sectionData in dataSouce {
+            let sectionExpanded = [Bool](repeating: false, count: sectionData.count)
+            isExpanded.append(sectionExpanded)
+        }
+    }
+}
 
-        // 创建 UIButton2
-        let button2 = UIButton(type: .system)
-        button2.setTitle("111", for: .normal)
-        button2.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        button2.translatesAutoresizingMaskIntoConstraints = false // 关闭自动转换
-        view.addSubview(button2)
+    //UITableView要展示几组，每组几个，具体展示
+extension ViewController: UITableViewDataSource {
 
-        // 使用原生自动布局为 UIButton 进行布局
-        NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            button.widthAnchor.constraint(equalToConstant: 100),
-            button.heightAnchor.constraint(equalToConstant: 50)
-        ])
+    //几行
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return dataSouce.count
     }
 
-    // 按钮点击事件处理方法
-    @objc func buttonTapped() {
-        print("按钮被点击了！")
+    //每行几个
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSouce[section].count
     }
+
+    //展示你的tableview，将tableview具体展示与cell联系起来的地方
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DemoTableViewUserCell", for: indexPath) as! DemoTableViewUserCell
+            let (label1Text, label2Text) = dataSouce[indexPath.section][indexPath.row]
+            cell.label1.text = label1Text
+            cell.label2.text = label2Text
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DemoTableViewNormalCell", for: indexPath) as! DemoTableViewNormalCell
+            let (label1Text, label2Text) = dataSouce[indexPath.section][indexPath.row]
+            cell.label1.text = label1Text
+            cell.label2.text = label2Text
+            return cell
+        }
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 切换单元格的展开或折叠状态
+        isExpanded[indexPath.section][indexPath.row].toggle()
+        // 刷新点击的单元格
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+}
+
+#Preview {
+    ViewController()
 }
