@@ -11,6 +11,12 @@ class ViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false // 关闭自动转换
         view.addSubview(label)
 
+        // 创建 UILabel2
+        let label2 = UILabel()
+        label2.text = "111"
+        label2.translatesAutoresizingMaskIntoConstraints = false // 关闭自动转换
+        view.addSubview(label2)
+
         // 使用原生自动布局为 UILabel 进行布局
         NSLayoutConstraint.activate([
             label.bottomAnchor.constraint(equalTo: view.bottomAnchor),
